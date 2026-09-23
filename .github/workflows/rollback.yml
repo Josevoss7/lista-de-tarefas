@@ -1,0 +1,32 @@
+# Rollback manual — PGCS seção 6.3
+# Actions > Rollback > Run workflow > informe a versão (ex.: v1.0.0)
+name: Rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      versao:
+        description: 'Tag da versão estável para voltar (ex.: v1.0.0)'
+        required: true
+
+jobs:
+  rollback:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.versao }}
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: src
+      - id: deploy
+        uses: actions/deploy-pages@v4
+      - run: echo "### Rollback para ${{ inputs.versao }} concluído" >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,8 @@
+# Ambiente de Desenvolvimento local: docker compose up --build
+# Depois acesse http://localhost:8080
+services:
+  web:
+    build: .
+    image: lista-de-tarefas:dev
+    ports:
+      - "8080:80"

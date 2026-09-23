@@ -1,0 +1,48 @@
+# Pipeline de Integração Contínua (CI) — PGCS seção 5
+# Roda em todo Pull Request para a main e também é chamado pelo pipeline de CD.
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build-e-testes:
+    name: Build, lint, testes e segurança
+    runs-on: ubuntu-latest
+    steps:
+      - name: 1. Checkout do código
+        uses: actions/checkout@v4
+
+      - name: 1. Configurar Node.js (com cache de dependências)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 1. Restaurar dependências
+        run: npm ci
+
+      - name: 2/3. Análise estática (ESLint)
+        run: npm run lint
+
+      - name: 4/5. Testes automatizados com cobertura mínima de 80%
+        run: npm run test:coverage
+
+      - name: Publicar relatório de cobertura
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorio-cobertura
+          path: coverage/
+          retention-days: 14
+
+      - name: 6. Análise de dependências (SCA) — bloqueia vulnerabilidades altas/críticas
+        run: npm audit --omit=dev --audit-level=high
+
+      - name: 7. Build da imagem Docker (validação do empacotamento)
+        run: docker build -t lista-de-tarefas:ci-${{ github.sha }} .
