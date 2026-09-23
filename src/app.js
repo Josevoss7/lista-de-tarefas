@@ -62,7 +62,9 @@
     });
 
     const n = Tarefas.contarPendentes(lista);
-    contador.textContent = n === 1 ? '1 tarefa pendente' : n + ' tarefas pendentes';
+    const c = Tarefas.contarConcluidas(lista);
+    contador.textContent =
+      (n === 1 ? '1 tarefa pendente' : n + ' tarefas pendentes') + ' · ' + c + ' concluída(s)';
   }
 
   form.addEventListener('submit', (e) => {

@@ -43,6 +43,10 @@ function contarPendentes(lista) {
   return lista.filter((t) => !t.concluida).length;
 }
 
+function contarConcluidas(lista) {
+  return lista.filter((t) => t.concluida).length;
+}
+
 function limparConcluidas(lista) {
   return lista.filter((t) => !t.concluida);
 }
@@ -54,6 +58,7 @@ const Tarefas = {
   alternarConclusao,
   filtrarTarefas,
   contarPendentes,
+  contarConcluidas,
   limparConcluidas,
 };
 
