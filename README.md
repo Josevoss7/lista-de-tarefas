@@ -7,7 +7,7 @@ As tarefas ficam salvas no próprio navegador (localStorage).
 
 Projeto usado como base do **PGCS — Plano de Gerenciamento de Configuração de Software (enfoque DevOps — CI/CD)**, disponível em [`docs/PGCS_Lista_de_Tarefas.pdf`](docs/PGCS_Lista_de_Tarefas.pdf).
 
-🔗 **Produção:** https://josevoss7.github.io/lista-de-tarefas/
+🔗 **Produção:** https://josevoss7.github.io/listadetarefas/
 
 ![Tela do sistema](docs/screenshot.png)
 
