@@ -6,6 +6,7 @@ const {
   filtrarTarefas,
   contarPendentes,
   limparConcluidas,
+  contarConcluidas,
 } = require('../src/tarefas');
 
 describe('criarTarefa', () => {
@@ -78,4 +79,12 @@ describe('operações sobre a lista', () => {
   test('limparConcluidas remove só as concluídas', () => {
     expect(limparConcluidas(lista).map((t) => t.id)).toEqual([1, 3]);
   });
+});
+
+test('contarConcluidas', () => {
+  const lista = [
+    { id: 1, titulo: 'A', concluida: true },
+    { id: 2, titulo: 'B', concluida: false },
+  ];
+  expect(contarConcluidas(lista)).toBe(1);
 });
