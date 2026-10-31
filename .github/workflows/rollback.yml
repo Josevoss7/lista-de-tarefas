@@ -28,5 +28,5 @@ jobs:
         with:
           path: src
       - id: deploy
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
       - run: echo "### Rollback para ${{ inputs.versao }} concluído" >> "$GITHUB_STEP_SUMMARY"
